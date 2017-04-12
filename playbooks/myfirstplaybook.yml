@@ -9,6 +9,13 @@
   vars_files:
     - conf/copyright.yml
     - conf/webdefaults.yml
-   vars_prompt:
-     - name: web_womain
-       prompt: Web Domain
+  vars_prompt:
+    - name: web_womain
+      prompt: Web Domain
+  tasks: 
+   - name: Install web server
+     action: yum name=httpd state=installed
+     notify: Restart HTTPD
+  handler:
+    - name: Restart HTTPD
+      action: service name=httpd state=restrted
