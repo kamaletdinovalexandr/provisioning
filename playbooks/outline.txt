@@ -1,0 +1,18 @@
+- webservers
+- test user
+- sudo rights
+
+- date/time stamp then playbook start
+
+- install apache
+- start apache
+
+- verify running apache
+
+- install client software
+  - telnet
+  - lynx
+
+- log all packages install on the system
+
+- date time stamp when playbook ends
