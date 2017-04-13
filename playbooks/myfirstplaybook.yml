@@ -1,5 +1,5 @@
 --- # My first playbook file
-- hosts: all
+- hosts: apacheweb
   user: user
   sudo: yes
   connection: ssh
@@ -10,12 +10,14 @@
     - conf/copyright.yml
     - conf/webdefaults.yml
   vars_prompt:
-    - name: web_womain
-      prompt: Web Domain
+    - name: pkg_name
+      prompt: Which package to install? 
   tasks: 
    - name: Install web server
      action: yum name=httpd state=installed
      notify: Restart HTTPD
+   - name: install pakage
+     yum: state={{pkg_name}} state=installed
   handlers:
     - name: Restart HTTPD
       action: service name=httpd state=restrted
