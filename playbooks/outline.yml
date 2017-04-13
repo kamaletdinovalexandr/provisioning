@@ -6,11 +6,12 @@
   gather_facts: no
   tasks:
   - name: playbook time start
-    raw: /usr/bin/date > /home/user/playbookstart.log
+    command: /usr/bin/date
+    register: timestamp_start
+  - debug: var=timestamp_start
   - name: install APACHE
     yum: pkg=httpd state=latest
-  - name: start APACHE
-    service: name=httpd state=restarted
+    notify: httpd start
   - name: verify running APACHE
     command: systemctl status httpd
     register: result
@@ -20,7 +21,13 @@
   - name: install client software - lynx
     yum: pkg=lynx state=latest 
   - name: log all packages
-    raw: yum list installed > /home/user/a;;packages.txt
+    commend: yum list installes
+    register: list_installed
+  - debug: var=list_installed  
   - name: playbook time end
-    raw: /usr/bin/date > /home/user/playbookend.log
-    
+    command: /usr/bin/date
+    register: timestamp_stop
+  - debug: var=timestamp_stop  
+  handlers:
+  - name: httpd start
+    service: name=httpd state=restarted  

@@ -1,5 +1,5 @@
 --- # My first playbook file
-- hosts: apacheweb
+- hosts: all
   user: user
   sudo: yes
   connection: ssh
